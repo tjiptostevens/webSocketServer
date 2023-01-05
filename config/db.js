@@ -1,15 +1,15 @@
 const mysql = require('mysql');
 
-const db = mysql.createConnection({
+const db = mysql.createPool({
     host: 'localhost',
     user: 'root',
-    password: '',
+    password: 'smiroot',
     database: 'dcd'
 });
 
-db.connect(async(err) => {
-    if (err) throw err;
-    console.log("DB Connected!");
-});
+// db.connect(async(err) => {
+//     if (err) throw err;
+//     console.log("DB Connected!");
+// });
 
 module.exports = db

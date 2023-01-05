@@ -22,19 +22,19 @@ wss.on('request', async(request) => {
 
     const connection = request.accept(null, request.origin)
     clients[id] = connection
-    let rows = db.query(
-        // let [rows] = await db.execute(
-        'SELECT * FROM tabmessage', '', (error, res, field) => {
-            console.log('QUERY', error)
-            console.log('QUERY RES', res)
-                // console.log('QUERY FIELD', field)
-            clients[id].send(JSON.stringify(res));
-            // clients[key].sendUTF(res)
-            console.log('Send message to: ', clients[id])
-        }
-    );
-    // rows = await JSON.stringify(rows)
-    console.log("ROWS", rows)
+        // let rows = db.query(
+        //     // let [rows] = await db.execute(
+        //     'SELECT * FROM tabmessage', '', (error, res, field) => {
+        //         console.log('QUERY', error)
+        //         console.log('QUERY RES', res)
+        //             // console.log('QUERY FIELD', field)
+        //         clients[id].send(JSON.stringify(res));
+        //         // clients[key].sendUTF(res)
+        //         console.log('Send message to: ', clients[id])
+        //     }
+        // );
+        // // rows = await JSON.stringify(rows)
+        // console.log("ROWS", rows)
 
     connection.on('message', async(message) => {
         // Parse the message and save it to the database
@@ -49,21 +49,21 @@ wss.on('request', async(request) => {
 
             for (key in clients) {
                 console.log(key)
-                let rows = db.query(
+                let rows = db.execute(
                     // let [rows] = await db.execute(
                     'SELECT * FROM tabmessage', '', (error, res, field) => {
                         console.log('QUERY', error)
                         console.log('QUERY RES', res)
-                            // console.log('QUERY FIELD', field)
                         clients[key].send(JSON.stringify(res));
                         // clients[key].sendUTF(res)
                         console.log('Send message to: ', clients[key])
                     }
                 );
                 // rows = await JSON.stringify(rows)
-                console.log("ROWS", rows)
+                // console.log("ROWS", rows.values)
+                // Send the saved messages to the client
+                // clients[key].sendUTF(JSON.stringify(res))
             }
-            // Send the saved messages to the client
         }
     })
 
